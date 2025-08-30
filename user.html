@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Panel</title>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-messaging-compat.js"></script>
+</head>
+<body>
+  <h2>User Panel</h2>
+  <p>Bildirishnoma olish uchun ruxsat bering</p>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyB1_XCbC777hKwxlilhMeq5Hpty1dvDT1I",
+      authDomain: "giper-8fd92.firebaseapp.com",
+      databaseURL: "https://giper-8fd92-default-rtdb.firebaseio.com",
+      projectId: "giper-8fd92",
+      storageBucket: "giper-8fd92.appspot.com",
+      messagingSenderId: "485740337398",
+      appId: "1:485740337398:web:xxxxx"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+
+    const messaging = firebase.messaging();
+    const database = firebase.database();
+
+    Notification.requestPermission().then((permission) => {
+      if (permission === "granted") {
+        messaging.getToken({ vapidKey: "YOUR_VAPID_KEY" })
+          .then((token) => {
+            console.log("Foydalanuvchi tokeni:", token);
+            database.ref("NOTIFICATION/" + token).set(true);
+          });
+      }
+    });
+  </script>
+</body>
+</html>
