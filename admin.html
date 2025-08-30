@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Panel</title>
+</head>
+<body>
+  <h2>Admin Panel</h2>
+  <input id="title" placeholder="Title"><br><br>
+  <textarea id="message" placeholder="Message"></textarea><br><br>
+  <button onclick="send()">Send</button>
+
+  <script>
+    function send() {
+      const title = document.getElementById("title").value;
+      const message = document.getElementById("message").value;
+
+      fetch("send.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title: title, message: message })
+      }).then(r => r.text()).then(d => alert(d));
+    }
+  </script>
+</body>
+</html>
